@@ -4,17 +4,17 @@
   "title": "WfFormat",
   "properties": {
     "name": {
-      "description": "Workflow trace name",
+      "description": "Workflow instance name",
       "type": "string",
       "minLength": 1
     },
     "description": {
-      "description": "General description of the trace",
+      "description": "General description of the instance",
       "type": "string",
       "minLength": 1
     },
     "createdAt": {
-      "description": "Trace creation timestamp",
+      "description": "Instance creation timestamp",
       "type": "string",
       "minLength": 1,
       "format": "date-time"
@@ -24,7 +24,8 @@
       "type": "string",
       "enum": [
         "1.0",
-        "1.1"
+        "1.1",
+        "1.2"
       ]
     },
     "wms": {
@@ -180,13 +181,24 @@
                   "auxiliary"
                 ]
               },
-              "arguments": {
-                "description": "Sets of job arguments",
-                "type": "array",
-                "items": {
-                  "description": "A job argument",
-                  "type": "string",
-                  "minLength": 1
+              "command": {
+                "description": "Job command description",
+                "type": "object",
+                "properties": {
+                  "program": {
+                    "description": "Program name",
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "arguments": {
+                    "description": "Sets of job arguments",
+                    "type": "array",
+                    "items": {
+                      "description": "A job argument",
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
                 }
               },
               "parents": {
@@ -237,7 +249,7 @@
               },
               "cores": {
                 "description": "Number of cores required by the job",
-                "type": "integer",
+                "type": "number",
                 "minimum": 1
               },
               "avgCPU": {
